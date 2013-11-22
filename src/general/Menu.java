@@ -34,5 +34,6 @@ public class Menu{
 	public static void main(String[] argv) {
 		Menu displayExample = new Menu();
 		displayExample.start();
+		
 	}
 }
