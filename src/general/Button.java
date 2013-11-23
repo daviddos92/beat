@@ -34,7 +34,7 @@ public class Button {
         bounds.height=buttonTexture.getImageHeight();
         bounds.width=buttonTexture.getImageWidth();
  
-        System.out.println(""+bounds.x+" "+bounds.y+" "+bounds.width+" "+bounds.height);
+      //  System.out.println(""+bounds.x+" "+bounds.y+" "+bounds.width+" "+bounds.height);
     }
 
     public void Draw(){
@@ -43,7 +43,8 @@ public class Button {
         }else{
             isClicked=false;
         }
-        
+       GL11.glEnable(GL11.GL_BLEND);
+       GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
        GL11.glLoadIdentity(); // Resets any previous projection matrices
        GL11.glOrtho(0, 1280, 720, 0, 1, -1);    
        
@@ -59,7 +60,10 @@ public class Button {
            GL11.glTexCoord2f(0,1);
            GL11.glVertex2f(X,Y+buttonTexture.getTextureHeight());        
        GL11.glEnd();
-
+       
+       GL11.glDisable(GL11.GL_BLEND);
+       GL11.glMatrixMode(GL11.GL_MODELVIEW);
+       
          
         }
 
