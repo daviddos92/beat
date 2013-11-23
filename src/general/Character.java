@@ -6,7 +6,7 @@ public class Character {
 	public int jump = 0;
 	private Position Position = null; // Position of left Foot
 	private String Name = null;
-    protected String[] Sprite = new String[5]; // 1. Normal 2. Hit 3. Block 
+    protected String[] Sprite = new String[10]; // 1. Normal 2. Hit 3. Block 
 											 // 4. Jump   5. Special
 	private boolean blocked = false;
 
@@ -24,6 +24,7 @@ public class Character {
 
 	Character() {
 	}
+
 
 	String getName() {
 		return this.Name;
@@ -141,8 +142,9 @@ public class Character {
 					.getPosition()
 					.setX((this.getStatus().getPosition().getX())
 							+ settings.deltaMove);
-			this.getStatus().setSpriteID(0);
+			
 			this.getStatus().setViewLeft(false); // walk Animation, view right
+			this.getStatus().setSpriteID(0+5*this.getStatus().ViewLeftToInt());
 		}
 	}
 
@@ -150,8 +152,9 @@ public class Character {
 		this.blocked=false;
 		if (this.getStatus().getPosition().getX() > settings.deltaMove) {
 			this.getStatus().getPosition().setX((this.getStatus().getPosition().getX())-settings.deltaMove);
-			this.getStatus().setSpriteID(0);
 			this.getStatus().setViewLeft(true); // walk Animation, view left
+			this.getStatus().setSpriteID(0+5*this.getStatus().ViewLeftToInt());
+			
 		}
 	}
 
@@ -159,11 +162,9 @@ public class Character {
 		this.blocked=false;
 		if (this.Status.getPosition().getY()==320) {
 			  this.jump+=5;
-			
-			
-			   		
+						   		
 			this.getStatus().getPosition().setY((this.getStatus().getPosition().getY()) + settings.deltaMove);
-			this.getStatus().setSpriteID(3); // Jump Animation
+			this.getStatus().setSpriteID(3+5*this.getStatus().ViewLeftToInt()); // Jump Animation
 		}
 	}
 
@@ -173,16 +174,17 @@ public class Character {
 
 	public void Hit(Character enemy) {
 		this.blocked=false;
-		this.getStatus().setSpriteID(1); // Hit Animation
+		this.getStatus().setSpriteID(1+5*this.getStatus().ViewLeftToInt()); // Hit Animation
 		if (enemy.isHit(this))
-			if (enemy.blocked)
+			{if (enemy.blocked)
 				enemy.Life -= settings.deltaHit; // looses Life, if hit
-		enemy.Life -= 4 * settings.deltaHit;
+		enemy.Life -= 4 * settings.deltaHit;}
+		
 
 	}
 
 	public void Block() {
-		this.Status.setSpriteID(2);
+		this.Status.setSpriteID(2+5*this.getStatus().ViewLeftToInt());
 		this.blocked=true;
 
 	}
@@ -190,7 +192,7 @@ public class Character {
 
 	public void UseSkill(Character enemy) {
 		this.blocked=false;
-		this.getStatus().setSpriteID(4); // Hit Animation
+		this.getStatus().setSpriteID(4+5*this.getStatus().ViewLeftToInt()); // Hit Animation
 		if (enemy.isHit(this))
 			if (enemy.blocked)
 				enemy.Life -= settings.deltaHit*Weapon.getStrength(); // looses Life, if hit
@@ -202,5 +204,7 @@ public class Character {
 		if (this.Life>0) return true;
 		return false;
 	}
-	
+	public void setSprites() {
+		
 	}
+	}	

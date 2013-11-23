@@ -7,9 +7,13 @@ import java.awt.event.KeyListener;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.SlickException;
 
 @SuppressWarnings("unused")
 public class ingame {
+	
+	
 
 	private static long frame = 0;
 
@@ -18,8 +22,44 @@ public class ingame {
 
 	private static final String Lebensbalken = "../GameJam/src/Textures/LebensBalken.png";
 
-	public static void draw() {
+	public static void draw(String Player1, String Player2) {
 	
+try {
+			
+			Music fightMusic = new Music("../gamejam/src/Musik/fightmusic.ogg");
+			fightMusic.play(1,3);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+     Character player1char=null;
+     Character player2char=null;
+	if(Player1=="Lady Lara")  {
+		 player1char=new Lady_Lara(new Status( new Position(200,320),0,true),"Lady Lara",1000,new Weapon());		
+	}
+	if(Player1=="Emma")			{
+		player1char=new Emma(new Status( new Position(200,320),0,true),"Emma",1000,new Weapon());		
+	}
+	if(Player1=="Tom")			{
+		 player1char=new Tom(new Status( new Position(200,320),0,true),"Tom",1000,new Weapon());		
+	}
+	if(Player1=="Sigmund")		{
+		 player1char=new Sigmund(new Status( new Position(200,320),0,true),"Sigmund",1000,new Weapon());		
+	}
+					
+	if(Player2=="Lady Lara") {
+		 player2char=new Lady_Lara(new Status( new Position(950,320),0,false),"Lady Lara",1000,new Weapon());		
+	}
+	if(Player2=="Emma") {
+		 player2char=new Emma(new Status( new Position(950,320),0,false),"Emma",1000,new Weapon());	
+	}
+	if(Player2=="Tom") {
+		 player2char=new Tom(new Status( new Position(950,320),0,false),"Tom",1000,new Weapon());		
+	}
+	if(Player2=="Sigmund")	{
+		player2char=new Sigmund(new Status( new Position(950,320),0,false),"Sigmund",1000,new Weapon());		
+	}
 	
 	Button Hintergrund=new Button();
 	Hintergrund.addButton(0,0, Hintergrundpath);
@@ -27,17 +67,15 @@ public class ingame {
 	Button Hintergrund2=new Button();
 	Hintergrund2.addButton(100,0, schwarz);
 	
-	Sigmund opi=new Sigmund(new Status( new Position(200,320),1,true),"Opa",1000,new Weapon());	
-	opi.setSprites();
-	Emma opi2=new Emma(new Status( new Position(400,320),1,true),"Emma",1000,new Weapon());
-	opi2.setSprites();
+	player1char.setSprites();
+	player2char.setSprites();
 	
-	Button opibutt=new Button();
-	Button opibutt2=new Button();
+	Button player1charbutt=new Button();
+	Button player1charbutt2=new Button();
 	
-	opibutt.addButton(opi.getStatus().getPosition().getX(), opi.getStatus().getPosition().getY(),opi.getSprite()[0]);
-	opibutt2.addButton(opi2.getStatus().getPosition().getX(), opi2.getStatus().getPosition().getY(),opi2.getSprite()[0]);
-	
+	player1charbutt.addButton(player1char.getStatus().getPosition().getX(), player1char.getStatus().getPosition().getY(),player1char.getSprite()[0]);
+	player1charbutt2.addButton(player2char.getStatus().getPosition().getX(), player2char.getStatus().getPosition().getY(),player2char.getSprite()[5]);
+	player2char.MoveLeft();
 	
 	
 	Button lebensbutton1=new Button();
@@ -63,17 +101,18 @@ public class ingame {
 	lebensbutton10.addButton(900,5, Lebensbalken);
 
 	Keyboard.enableRepeatEvents(false);
-    System.out.println(Keyboard.areRepeatEventsEnabled());
+
 	
 
     
     //Spielschleife
 	while (!Display.isCloseRequested()) {
+		
 				
-		if (opi.jump!=0) {opi.getStatus().getPosition().setY(opi.getStatus().getPosition().getY()-2*settings.deltaMove);opi.jump--;}
-		Gravitation(opi);
-		if (opi2.jump!=0) {opi2.getStatus().getPosition().setY(opi2.getStatus().getPosition().getY()-2*settings.deltaMove);opi2.jump--;}
-		Gravitation(opi2);
+		if (player1char.jump!=0) {player1char.getStatus().getPosition().setY(player1char.getStatus().getPosition().getY()-2*settings.deltaMove);player1char.jump--;}
+		Gravitation(player1char);
+		if (player2char.jump!=0) {player2char.getStatus().getPosition().setY(player2char.getStatus().getPosition().getY()-2*settings.deltaMove);player2char.jump--;}
+		Gravitation(player2char);
 		
 		
 		
@@ -82,8 +121,8 @@ public class ingame {
 		Keyboard.poll();
 		Keyboard.next();
 		
-		//opi lebensbalken
-		int n=opi.getLife()/200;
+		//player1char lebensbalken
+		int n=player1char.getLife()/200;
 		if(n-->0) lebensbutton1.Draw();
 		if(n-->0) lebensbutton2.Draw();
 		if(n-->0) lebensbutton3.Draw();
@@ -93,7 +132,7 @@ public class ingame {
 		
 		
 		//op2 lebensbalken
-		n=Math.round(opi2.getLife()/200);
+		n=Math.round(player2char.getLife()/200);
 		
 		if(n-->0) lebensbutton6.Draw();
 		if(n-->0) lebensbutton7.Draw();
@@ -108,26 +147,26 @@ public class ingame {
 	
 			 if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 
-				 opi.MoveLeft();	 
+				 player1char.MoveLeft();	 
 			 }
 			 if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 
-				 opi.MoveRight(); }
+				 player1char.MoveRight(); }
 			 
 			 if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
 
-				 opi.Jump();	
+				 player1char.Jump();	
 			 }
 				 if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
 
-				 opi.Block();	    
+				 player1char.Block();	    
 				 }
 				 if(Keyboard.isKeyDown(Keyboard.KEY_C)) {
 
-			     opi.Hit(opi2);	    }
+			     player1char.Hit(player2char);	    }
 				//	 if(Keyboard.isKeyDown(Keyboard.KEY_V)) {
 					
-				//       opi.Special(opi2);	    }
+				//       player1char.Special(player2char);	    }
 
 		 
 		
@@ -137,30 +176,30 @@ public class ingame {
 
 					 if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 
-						 opi2.MoveLeft();	 }
+						 player2char.MoveLeft();	 }
 					 if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
 
-						 opi2.MoveRight(); }
+						 player2char.MoveRight(); }
 					 
 					 if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
 
-						 opi2.Jump();	    }
+						 player2char.Jump();	    }
 					 if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-						 opi2.Block();	    }
+						 player2char.Block();	    }
 					 if(Keyboard.isKeyDown(Keyboard.KEY_M)) {
 			
-					     opi2.Hit(opi);	    }
+					     player2char.Hit(player1char);	    }
 					// if(Keyboard.isKeyDown(Keyboard.KEY_COMMA)) {
 			
-				//       opi2.Special(opi);	    }
+				//       player2char.Special(player1char);	    }
 					 
 					
 		 
-		 opibutt.addButton(opi.getStatus().getPosition().getX(), opi.getStatus().getPosition().getY(), opi.getSprite()[opi.getStatus().getSpriteID()]);
-		 opibutt2.addButton(opi2.getStatus().getPosition().getX(), opi2.getStatus().getPosition().getY(), opi2.getSprite()[opi2.getStatus().getSpriteID()]);
+		 player1charbutt.addButton(player1char.getStatus().getPosition().getX(), player1char.getStatus().getPosition().getY(), player1char.getSprite()[player1char.getStatus().getSpriteID()]);
+		 player1charbutt2.addButton(player2char.getStatus().getPosition().getX(), player2char.getStatus().getPosition().getY(), player2char.getSprite()[player2char.getStatus().getSpriteID()]);
 		 
-		opibutt.Draw();
-		opibutt2.Draw();
+		player1charbutt.Draw();
+		player1charbutt2.Draw();
 		Display.update();
 		
 	}

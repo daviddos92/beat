@@ -1,50 +1,19 @@
 package general;
 
+import java.awt.Rectangle;
+
 public class Status {
         private Position Position = null;
         private int SpriteID = 0;
         private int Width = 240;
-        private int Height = 320;
+        private int Height = 360;
         private boolean viewLeft = false;
 
         Status(Position c, int ID, boolean left) {
                 Position = c;
                 SpriteID = ID;
                 viewLeft = left;
-
-                switch (ID) {
-
-                case 0:					//idle
-                        Width = 120;
-                        Height = 320;
-                        break;
-
-                case 1:					//Hit
-                        Width = 0;
-                        Height = 0;
-                        break;
-
-                case 2:					//block
-                        Width = 240;
-                        Height = 320;
-                        break;
-
-                case 3:					//jump
-                        Width = 120;
-                        Height = 320;
-                        break;
-
-                case 4:					//special
-                        Width = 240;
-                        Height = 320;
-                        break;
-
-                default:
-                        Width = 240;
-                        Height = 320;
-                        break;
-
-                }
+                
         }
 
         public boolean isViewLeft() {
@@ -91,34 +60,51 @@ public class Status {
                 switch (this.getSpriteID()) {
 
 
+
                 case 0:					//idle
                         Width = 120;
                         Height = 320;
                         break;
 
                 case 1:					//Hit
-                        Width = 0;
-                        Height = 0;
+                        Width = 240;
                         break;
 
                 case 2:					//block
                         Width = 240;
-                        Height = 320;
                         break;
 
                 case 3:					//jump
                         Width = 120;
-                        Height = 320;
                         break;
 
                 case 4:					//special
                         Width = 240;
-                        Height = 320;
                         break;
-
+                
+                case 5:					//idle
+                		Width = 240;
+                		break;
+                    
+                    
+                case 6:					//hit
+                		Width = 240;
+                		break;
+                    
+                case 7:					//block
+                		Width = 240;
+                    	break;
+                    
+                case 8:					//jump
+                		Width = 240;
+                		break;
+                    
+                case 9:					//special
+                		Width = 240;
+                		break;
+                    
                 default:
                         Width = 240;
-                        Height = 320;
                         break;
 
                 }
@@ -137,14 +123,21 @@ public class Status {
         }
         
         public boolean collision(Status a) {
-                Position [] first  =this.getVerteces();
-                Position [] second =a.getVerteces();
-                
-                if (!(first[1].getX()<second[0].getX())) return true;
-                if (!(second[1].getX()<first[0].getX())) return true;
-                if (!(first[0].getY()<second[2].getY())) return true;
-                if (!(second[0].getY()<first[2].getY())) return true;
-                return false;
+        	Rectangle r1 = new Rectangle(this.getPosition().getX(),this.getPosition().getY(),this.Width,this.Height);
+        	Rectangle r2 = new Rectangle(a.getPosition().getX(),a.getPosition().getY(),a.Width,a.Height);
+        	return r1.intersects(r2);    	
+           	
+             
         }
+        
+        public int ViewLeftToInt() {
+        if (this.viewLeft) return 1;
+        else return 0;
+        }
+        
+       
+           
+        	
+        
 
 }

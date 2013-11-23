@@ -81,7 +81,7 @@ public class Menu {
 
 			}
 			if (exit.isClicked) {
-				ingame.draw();
+				ingame.draw("Sigmund", "Emma");
 				break;
 			}
 
