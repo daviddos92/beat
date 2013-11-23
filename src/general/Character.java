@@ -1,14 +1,13 @@
 package general;
 
-import java.util.Calendar;
-
 public class Character {
 
 	private Status Status = null;
+	public int jump = 0;
 	private Position Position = null; // Position of left Foot
 	private String Name = null;
-	private String[] Sprite = new String[5]; // 1. Normal 2. Hit 3. Block 4.
-												// Jump 5. Special
+    protected String[] Sprite = new String[5]; // 1. Normal 2. Hit 3. Block 
+											 // 4. Jump   5. Special
 	private boolean blocked = false;
 
 	private int maxLife = 100;
@@ -53,6 +52,26 @@ public class Character {
 	String getSpecialSprite() {
 		return this.Sprite[4];
 	}
+	
+	void setNormalSprite(String normal) {
+		this.Sprite[0]=normal;
+	}
+
+	void setHitSprite(String hit) {
+		this.Sprite[1]=hit;
+	}
+	
+	void setBlockSprite(String block) {
+		this.Sprite[2]=block;
+	}
+	
+	void setJumpSprite(String jump) {
+		this.Sprite[3]=jump;
+	}
+	
+	void setSpecialSprite(String special) {
+		this.Sprite[4]=special;
+	}
 
 	int getLife() {
 		return this.Life;
@@ -89,7 +108,7 @@ public class Character {
 	public boolean isHit(Character enemy) {
 		Status me = this.getStatus();
 		Status him = enemy.getStatus();
-		if (me.getPosition().getX() < him.getPosition().getX()) {
+		if ((me.getPosition().getX() < him.getPosition().getX()) && (him.isViewLeft())) {
 			return me.collision(him);
 		} else {
 			if (!him.isViewLeft())
@@ -117,7 +136,7 @@ public class Character {
 
 	public void MoveRight() {
 		this.blocked=false;
-		if (this.getStatus().getPosition().getX() + getStatus().getWidth() < (1280 - settings.deltaMove)) {
+		if ((this.getStatus().getPosition().getX() + getStatus().getWidth()) < (1140 - settings.deltaMove)) {
 			this.getStatus()
 					.getPosition()
 					.setX((this.getStatus().getPosition().getX())
@@ -129,7 +148,7 @@ public class Character {
 
 	public void MoveLeft() {
 		this.blocked=false;
-		if (this.getStatus().getPosition().getX() < settings.deltaMove) {
+		if (this.getStatus().getPosition().getX() > settings.deltaMove) {
 			this.getStatus().getPosition().setX((this.getStatus().getPosition().getX())-settings.deltaMove);
 			this.getStatus().setSpriteID(0);
 			this.getStatus().setViewLeft(true); // walk Animation, view left
@@ -138,19 +157,14 @@ public class Character {
 
 	public void Jump() {
 		this.blocked=false;
-		if (true) {
-			  ingame.jump+=20;
+		if (this.Status.getPosition().getY()==320) {
+			  this.jump+=5;
 			
 			
-			  Calendar clock1 = Calendar.getInstance();  
-		      long t1 = clock1.getTimeInMillis(); 
-		      long t2=t1;
-		      //do {  
-		    	t1 = clock1.getTimeInMillis();  		
+			   		
 			this.getStatus().getPosition().setY((this.getStatus().getPosition().getY()) + settings.deltaMove);
 			this.getStatus().setSpriteID(3); // Jump Animation
-		//	System.out.println(this.getStatus().getPosition());
-		} //while ((t1-t2)<1); }
+		}
 	}
 
 		
@@ -182,4 +196,11 @@ public class Character {
 				enemy.Life -= settings.deltaHit*Weapon.getStrength(); // looses Life, if hit
 		enemy.Life -= 4 * settings.deltaHit*Weapon.getStrength(); }
 
+	
+	
+	public boolean isAlive() {
+		if (this.Life>0) return true;
+		return false;
+	}
+	
 	}

@@ -3,8 +3,8 @@ package general;
 public class Status {
         private Position Position = null;
         private int SpriteID = 0;
-        private int Width = 0;
-        private int Height = 0;
+        private int Width = 240;
+        private int Height = 320;
         private boolean viewLeft = false;
 
         Status(Position c, int ID, boolean left) {
@@ -14,34 +14,34 @@ public class Status {
 
                 switch (ID) {
 
-                case 0:
+                case 0:					//idle
+                        Width = 120;
+                        Height = 320;
+                        break;
+
+                case 1:					//Hit
                         Width = 0;
                         Height = 0;
                         break;
 
-                case 1:
-                        Width = 0;
-                        Height = 0;
+                case 2:					//block
+                        Width = 240;
+                        Height = 320;
                         break;
 
-                case 2:
-                        Width = 0;
-                        Height = 0;
+                case 3:					//jump
+                        Width = 120;
+                        Height = 320;
                         break;
 
-                case 3:
-                        Width = 0;
-                        Height = 0;
-                        break;
-
-                case 4:
-                        Width = 0;
-                        Height = 0;
+                case 4:					//special
+                        Width = 240;
+                        Height = 320;
                         break;
 
                 default:
-                        Width = 0;
-                        Height = 0;
+                        Width = 240;
+                        Height = 320;
                         break;
 
                 }
@@ -90,47 +90,49 @@ public class Status {
         public void setSize() {
                 switch (this.getSpriteID()) {
 
-                case 0:
+
+                case 0:					//idle
+                        Width = 120;
+                        Height = 320;
+                        break;
+
+                case 1:					//Hit
                         Width = 0;
                         Height = 0;
                         break;
 
-                case 1:
-                        Width = 0;
-                        Height = 0;
+                case 2:					//block
+                        Width = 240;
+                        Height = 320;
                         break;
 
-                case 2:
-                        Width = 0;
-                        Height = 0;
+                case 3:					//jump
+                        Width = 120;
+                        Height = 320;
                         break;
 
-                case 3:
-                        Width = 0;
-                        Height = 0;
-                        break;
-
-                case 4:
-                        Width = 0;
-                        Height = 0;
+                case 4:					//special
+                        Width = 240;
+                        Height = 320;
                         break;
 
                 default:
-                        Width = 0;
-                        Height = 0;
+                        Width = 240;
+                        Height = 320;
                         break;
+
                 }
         }
 
         public Position[] getVerteces() {
                 Position[] out = new Position[4];
-                out[2] = this.getPosition();
-                out[3] = this.getPosition();
-                out[3].setX(out[3].getX() + this.getWidth());
                 out[0] = this.getPosition();
-                out[0].setY(out[0].getY() + this.getHeight());
-                out[1] = out[0];
-                out[1].setY(out[1].getY() + this.getWidth());
+                out[1] = this.getPosition();
+                out[1].setX(out[1].getX() + this.getWidth());
+                out[2] = this.getPosition();
+                out[2].setY(out[2].getY() + this.getHeight());
+                out[3] = out[2];
+                out[3].setY(out[3].getY() + this.getWidth());
                 return out;
         }
         
@@ -138,11 +140,11 @@ public class Status {
                 Position [] first  =this.getVerteces();
                 Position [] second =a.getVerteces();
                 
-                if (first[1].getX()<second[0].getX()) return false;
-                if (second[1].getX()<first[0].getX()) return false;
-                if (first[0].getY()<second[2].getY()) return false;
-                if (second[0].getY()<first[2].getY()) return false;
-                return true;
+                if (!(first[1].getX()<second[0].getX())) return true;
+                if (!(second[1].getX()<first[0].getX())) return true;
+                if (!(first[0].getY()<second[2].getY())) return true;
+                if (!(second[0].getY()<first[2].getY())) return true;
+                return false;
         }
 
 }
