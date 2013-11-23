@@ -1,14 +1,13 @@
 package general;
 
-
 public class Position {
-	
-	int x;
-	int y;
-	
+
+	private int x;
+	private int y;
+
 	Position(int _x, int _y) {
-		x=_x;
-		y=_y;
+		x = _x;
+		y = _y;
 	}
 
 	public int getX() {
@@ -56,7 +55,5 @@ public class Position {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }
