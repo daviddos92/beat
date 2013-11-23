@@ -16,7 +16,7 @@ public class Button {
     public int Y;
     public Texture buttonTexture;
     public boolean isClicked=false;
-    Rectangle bounds = new Rectangle();
+    public Rectangle bounds = new Rectangle();
 
 
     public void addButton(int x, int y , String TEXPATH){

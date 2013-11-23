@@ -18,5 +18,10 @@ public class Lady_Lara extends Character{
 		Sprite[8]="../GameJam/src/Textures/Domina_Jump_inverted.png";		// jump
 		Sprite[9]=null;														// special
 	}
-
+	public void updateSize() {
+		Button b = new Button();
+		b.addButton(this.getStatus().getPosition().getX(),this.getStatus().getPosition().getY(),Sprite[this.getStatus().getSpriteID()]);
+		this.Height=b.bounds.height;
+		this.Width=b.bounds.width;
+	}
 }

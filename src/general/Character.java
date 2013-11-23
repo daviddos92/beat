@@ -1,13 +1,16 @@
 package general;
 
+import java.awt.Rectangle;
+
 public class Character {
 
 	private Status Status = null;
 	public int jump = 0;
-	private Position Position = null; // Position of left Foot
 	private String Name = null;
     protected String[] Sprite = new String[10]; // 1. Normal 2. Hit 3. Block 
-											 // 4. Jump   5. Special
+    											// 4. Jump   5. Special
+    public int Height;
+    public int Width;
 	private boolean blocked = false;
 
 	private int maxLife = 100;
@@ -22,56 +25,13 @@ public class Character {
 
 	}
 
-	Character() {
-	}
-
-
+	
 	String getName() {
 		return this.Name;
 	}
 
 	String[] getSprites() {
 		return this.Sprite;
-	}
-
-	String getNormalSprite() {
-		return this.Sprite[0];
-	}
-
-	String getHitSprite() {
-		return this.Sprite[1];
-	}
-
-	String getBlockSprite() {
-		return this.Sprite[2];
-	}
-
-	String getJumpSprite() {
-		return this.Sprite[3];
-	}
-
-	String getSpecialSprite() {
-		return this.Sprite[4];
-	}
-	
-	void setNormalSprite(String normal) {
-		this.Sprite[0]=normal;
-	}
-
-	void setHitSprite(String hit) {
-		this.Sprite[1]=hit;
-	}
-	
-	void setBlockSprite(String block) {
-		this.Sprite[2]=block;
-	}
-	
-	void setJumpSprite(String jump) {
-		this.Sprite[3]=jump;
-	}
-	
-	void setSpecialSprite(String special) {
-		this.Sprite[4]=special;
 	}
 
 	int getLife() {
@@ -82,14 +42,6 @@ public class Character {
 		return this.Weapon;
 	}
 
-	void setSprites(String n, String h, String b, String j, String s) {
-		this.Sprite[0] = n;
-		this.Sprite[1] = h;
-		this.Sprite[2] = b;
-		this.Sprite[3] = j;
-		this.Sprite[4] = s;
-	}
-
 	void setLife(int nLife) {
 		this.Life = nLife;
 	}
@@ -98,22 +50,14 @@ public class Character {
 		this.Weapon = W;
 	}
 
-	void setPosition(Position p) {
-		this.Position = p;
-	}
-
-	Position getPosition() {
-		return this.Position;
-	}
-
 	public boolean isHit(Character enemy) {
 		Status me = this.getStatus();
 		Status him = enemy.getStatus();
 		if ((me.getPosition().getX() < him.getPosition().getX()) && (him.isViewLeft())) {
-			return me.collision(him);
+			return this.collision(enemy);
 		} else {
 			if (!him.isViewLeft())
-				return me.collision(him);
+				return this.collision(enemy);
 		}
 		return false;
 
@@ -137,7 +81,7 @@ public class Character {
 
 	public void MoveRight() {
 		this.blocked=false;
-		if ((this.getStatus().getPosition().getX() + getStatus().getWidth()) < (1140 - settings.deltaMove)) {
+		if ((this.getStatus().getPosition().getX() + Width) < (1280 - settings.deltaMove)) {
 			this.getStatus()
 					.getPosition()
 					.setX((this.getStatus().getPosition().getX())
@@ -204,7 +148,17 @@ public class Character {
 		if (this.Life>0) return true;
 		return false;
 	}
-	public void setSprites() {
-		
+	
+	public boolean collision(Character a) {
+    	Rectangle r1 = new Rectangle(this.Status.getPosition().getX(),this.Status.getPosition().getY(),this.Width,this.Height);
+    	Rectangle r2 = new Rectangle(a.Status.getPosition().getX(),a.Status.getPosition().getY(),a.Width,a.Height);
+    	return r1.intersects(r2);    	
+       	
+         
+    }
+	public void updateSize() {}
+	public void setSprites() {}
+	
+	
+	
 	}
-	}	

@@ -108,7 +108,8 @@ try {
     //Spielschleife
 	while (!Display.isCloseRequested()) {
 		
-				
+		
+		
 		if (player1char.jump!=0) {player1char.getStatus().getPosition().setY(player1char.getStatus().getPosition().getY()-2*settings.deltaMove);player1char.jump--;}
 		Gravitation(player1char);
 		if (player2char.jump!=0) {player2char.getStatus().getPosition().setY(player2char.getStatus().getPosition().getY()-2*settings.deltaMove);player2char.jump--;}
@@ -164,15 +165,11 @@ try {
 				 if(Keyboard.isKeyDown(Keyboard.KEY_C)) {
 
 			     player1char.Hit(player2char);	    }
-				//	 if(Keyboard.isKeyDown(Keyboard.KEY_V)) {
+					 if(Keyboard.isKeyDown(Keyboard.KEY_V)) {
 					
-				//       player1char.Special(player2char);	    }
+				      player1char.UseSkill(player2char);	    }
 
-		 
-		
-		 
-			
-				
+		 			
 
 					 if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 
@@ -193,7 +190,8 @@ try {
 			
 				//       player2char.Special(player1char);	    }
 					 
-					
+		player1char.updateSize();		
+		player2char.updateSize();	
 		 
 		 player1charbutt.addButton(player1char.getStatus().getPosition().getX(), player1char.getStatus().getPosition().getY(), player1char.getSprite()[player1char.getStatus().getSpriteID()]);
 		 player1charbutt2.addButton(player2char.getStatus().getPosition().getX(), player2char.getStatus().getPosition().getY(), player2char.getSprite()[player2char.getStatus().getSpriteID()]);
@@ -202,6 +200,15 @@ try {
 		player1charbutt2.Draw();
 		Display.update();
 		
+		if(player1char.isAlive()==false) { 
+			fin.draw(player2char.getName());
+			break;
+		}
+		if(player2char.isAlive()==false) { 
+			fin.draw(player1char.getName());
+			break;
+		}
+	
 	}
 	Display.destroy();
 	

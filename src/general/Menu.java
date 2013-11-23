@@ -11,12 +11,11 @@ import org.newdawn.slick.*;
 @SuppressWarnings("unused")
 public class Menu {
 
+	private static final String backpath = "../gamejam/src/Textures/Menu Back.png";
 	private static final String TEXPATH = "../gamejam/src/Textures/PlayKLEIN.png";
 	private static final String TEXPATH2 = "../gamejam/src/Textures/OptionsKLEIN.png";
 	private static final String TEXPATH3 = "../gamejam/src/Textures/CreditsKLEIN.png";
 	private static final String TEXPATH4 = "../gamejam/src/Textures/ExitKLEIN.png";
-
-	private static final String schwarz = "../gamejam/src/Textures/schwarz.png";
 
 	public void start() {
 		try {
@@ -37,25 +36,26 @@ public class Menu {
 		
 		
 		// init OpenGL here
+		Button background = new Button();
+		background.addButton(0,0, backpath);
+		
 		Button play = new Button();
-		play.addButton(550, 200, TEXPATH);
+		play.addButton(550, 160, TEXPATH);
 
 		Button options = new Button();
-		options.addButton(460, 300, TEXPATH2);
+		options.addButton(460, 270, TEXPATH2);
 
 		Button credits = new Button();
-		credits.addButton(460, 400, TEXPATH3);
+		credits.addButton(460, 390, TEXPATH3);
 
 		Button exit = new Button();
 		exit.addButton(550, 500, TEXPATH4);
 
-		Button black = new Button();
-		black.addButton(0, 0, schwarz);
 
 		while (!Display.isCloseRequested()) {
 
 			// render OpenGL here
-			black.Draw();
+			background.Draw();
 			play.Draw();
 			options.Draw();
 			credits.Draw();

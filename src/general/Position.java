@@ -1,5 +1,7 @@
 package general;
 
+import java.awt.Rectangle;
+
 public class Position {
 
         private int x;
@@ -55,5 +57,6 @@ public class Position {
                         return false;
                 return true;
         }
+        
 
 }

@@ -22,5 +22,10 @@ public class Sigmund extends Character{
 		Sprite[8]="../GameJam/src/Textures/Rentner_Jump_inverted.png";					// jump inverted
 		Sprite[9]="../GameJam/src/Textures/Rentner_Attack_Toilet_Brush_inverted.png";	// special inverted
 	}
-
+	public void updateSize() {
+		Button b = new Button();
+		b.addButton(this.getStatus().getPosition().getX(),this.getStatus().getPosition().getY(),Sprite[this.getStatus().getSpriteID()]);
+		this.Height=b.bounds.height;
+		this.Width=b.bounds.width;
+	}
 }
