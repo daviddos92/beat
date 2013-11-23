@@ -70,9 +70,9 @@ public class Menu {
 
 			if (options.isClicked) {
 				Options next = new Options();
-				// if (next.start()) {
-				// break;
-				// }
+				next.start();
+				 
+				 
 			}
 
 			if (credits.isClicked) {
