@@ -7,10 +7,12 @@ import org.lwjgl.LWJGLException;
 
 public class Menu{
         
-        private static final String TEXPATH = "C:/GameJam/PlayKLEIN.png";
-        private static final String TEXPATH2 = "C:/GameJam/OptionsKLEIN.png";
-        private static final String TEXPATH3 = "C:/GameJam/CreditsKLEIN.png";
-        private static final String TEXPATH4 = "C:/GameJam/ExitKLEIN.png";
+
+        private static final String TEXPATH = "../GameJam/src/general/PlayKLEIN.png";
+        
+        private static final String TEXPATH2 = "../GameJam/src/general/OptionsKLEIN.png";
+        private static final String TEXPATH3 = "../GameJam/src/general/CreditsKLEIN.png";
+        private static final String TEXPATH4 = "../GameJam/src/general/ExitKLEIN.png";
         
         public void start() {
                 try {
@@ -33,9 +35,7 @@ public class Menu{
                 
                 Button exit = new Button();
                 exit.addButton(550, 500, TEXPATH4);
-                
-                
-                
+                           
                 
                 while (!Display.isCloseRequested()) {
                         
@@ -68,6 +68,7 @@ public class Menu{
                                 break;
                         }
                         if(exit.isClicked){
+                        	ingame.draw();
                                 break;
                         }
                         

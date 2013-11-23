@@ -19,16 +19,16 @@ public class ChoosePlayerMode {
                 }
                 */
                 Button choosePlayer = new Button();
-                choosePlayer.addButton(350, 150,"C:/GameJam/chooseKLEIN.png");
+                choosePlayer.addButton(350, 150,"../GameJam/src/general/chooseKLEIN.png");
                 
                 Button player1 = new Button();
-                player1.addButton(350, 260, "C:/GameJam/singleKLEIN.png");
+                player1.addButton(350, 260, "../GameJam/src/general/singleKLEIN.png");
                 
                 Button player2 = new Button();
-                player2.addButton(350, 570, "C:/GameJam/multiKLEIN.png");
+                player2.addButton(350, 570, "../GameJam/src/general/multiKLEIN.png");
 
                 Button black = new Button();
-                black.addButton(0, 0, "C:/GameJam/schwarz.png");
+                black.addButton(0, 0, "../GameJam/src/general/schwarz.png");
 
                 while (!Display.isCloseRequested()) {
                         black.Draw();
