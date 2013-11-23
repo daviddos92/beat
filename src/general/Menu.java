@@ -32,15 +32,16 @@ public class Menu{
 		credits.addButton(460,400,TEXPATH3);
 		
 		Button exit = new Button();
-		exit.addButton(550, 500, TEXPATH4);
-		
-		
+		exit.addButton(550, 500, TEXPATH4);		
+
+		Button black = new Button();
+		black.addButton(0, 0, "C:/Users/Lennart/Pictures/schwarz.png");
 		
 		
 		while (!Display.isCloseRequested()) {
 			
 			// render OpenGL here
-		
+			black.Draw();		
 			play.Draw();
 			options.Draw();	
 			credits.Draw();
@@ -50,8 +51,9 @@ public class Menu{
 			if(play.isClicked){
 				System.out.println("Play");
 				ChoosePlayer next = new ChoosePlayer();
-				next.start();
-				break;
+				if(!next.start()){
+					break;
+				}
 			}
 			
 			if(options.isClicked){

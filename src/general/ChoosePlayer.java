@@ -8,22 +8,16 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class ChoosePlayer {
 
-	public void start() {
-		/*
-		try {
-			Display.setDisplayMode(new DisplayMode(800, 600));
-			Display.create();
-		} catch (LWJGLException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-		*/
+	public boolean start() {
+		
 		Button choosePlayer = new Button();
 		choosePlayer.addButton(350, 150,"C:/Users/Lennart/Pictures/PlayKLEIN.png");
 		Button player1 = new Button();
 		player1.addButton(350, 260, "C:/Users/Lennart/Pictures/PlayKLEIN.png");
 		Button player2 = new Button();
 		player2.addButton(350, 570, "C:/Users/Lennart/Pictures/PlayKLEIN.png");
+		Button back = new Button();
+		back.addButton(1000,600,"C:/Users/Lennart/Pictures/back.png");
 
 		Button black = new Button();
 		black.addButton(0, 0, "C:/Users/Lennart/Pictures/schwarz.png");
@@ -32,6 +26,8 @@ public class ChoosePlayer {
 			black.Draw();
 			player1.Draw();
 			player2.Draw();
+			back.Draw();
+			
 			if (player1.isClicked) {
 				// ChooseCharacter x = new ChooseCharacter();
 				// x.start();
@@ -42,8 +38,15 @@ public class ChoosePlayer {
 				// y.start();
 				break;
 			}
+			if (back.isClicked){
+				return true;
+			}
+			
 			Display.update();
+			Display.sync(60);
+			
 		}
+		return false;
 	}
 
 	public static void main(String[] argv) {
