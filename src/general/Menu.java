@@ -7,10 +7,12 @@ import org.lwjgl.LWJGLException;
 
 public class Menu{
 	
-	private static final String TEXPATH = "C:/Users/Lennart/Pictures/PlayKLEIN.png";
-	private static final String TEXPATH2 = "C:/Users/Lennart/Pictures/OptionsKLEIN.png";
-	private static final String TEXPATH3 = "C:/Users/Lennart/Pictures/CreditsKLEIN.png";
-	private static final String TEXPATH4 = "C:/Users/Lennart/Pictures/ExitKLEIN.png";
+	private static final String TEXPATH = "../gamejam/src/general/PlayKLEIN.png";
+	private static final String TEXPATH2 = "../gamejam/src/general/OptionsKLEIN.png";
+	private static final String TEXPATH3 = "../gamejam/src/general/CreditsKLEIN.png";
+	private static final String TEXPATH4 = "../gamejam/src/general/ExitKLEIN.png";
+	
+	private static final String schwarz = "../gamejam/src/general/schwarz.png";
 	
 	public void start() {
 		try {
@@ -35,7 +37,7 @@ public class Menu{
 		exit.addButton(550, 500, TEXPATH4);		
 
 		Button black = new Button();
-		black.addButton(0, 0, "C:/Users/Lennart/Pictures/schwarz.png");
+		black.addButton(0, 0, schwarz);
 		
 		
 		while (!Display.isCloseRequested()) {
@@ -45,29 +47,27 @@ public class Menu{
 			play.Draw();
 			options.Draw();	
 			credits.Draw();
-			exit.Draw();
-			
+			exit.Draw();			
 			
 			if(play.isClicked){
-				System.out.println("Play");
-				ChoosePlayer next = new ChoosePlayer();
+				ChoosePlayerMode next = new ChoosePlayerMode();
 				if(!next.start()){
 					break;
 				}
 			}
 			
 			if(options.isClicked){
-				System.out.println("Options");
 				Options next = new Options();
-				next.start();
-				break;
+				if(!next.start()){
+					break;
+				}
 			}
 			
 			if(credits.isClicked){
-				System.out.println("Credits");
 				Credits next = new Credits();
-				next.start();
-				break;
+				if(!next.start()){
+					break;
+				}
 			}
 			if(exit.isClicked){
 				break;
