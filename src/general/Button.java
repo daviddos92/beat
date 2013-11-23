@@ -41,7 +41,7 @@ public class Button {
     public void Draw(){
         if(bounds.contains(Mouse.getX(),(720-Mouse.getY()))&&Mouse.isButtonDown(0)){
             isClicked=true;
-            System.out.println(isClicked);
+
         }else{
             isClicked=false;
         }
