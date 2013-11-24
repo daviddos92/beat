@@ -82,10 +82,7 @@ public class Character {
 	public void MoveRight() {
 		this.blocked=false;
 		if ((this.getStatus().getPosition().getX() + Width) < (1280 - settings.deltaMove)) {
-			this.getStatus()
-					.getPosition()
-					.setX((this.getStatus().getPosition().getX())
-							+ settings.deltaMove);
+			this.getStatus().getPosition().setX((this.getStatus().getPosition().getX())	+ settings.deltaMove);
 			
 			this.getStatus().setViewLeft(false); // walk Animation, view right
 			this.getStatus().setSpriteID(0+5*this.getStatus().ViewLeftToInt());
@@ -96,6 +93,7 @@ public class Character {
 		this.blocked=false;
 		if (this.getStatus().getPosition().getX() > settings.deltaMove) {
 			this.getStatus().getPosition().setX((this.getStatus().getPosition().getX())-settings.deltaMove);
+			
 			this.getStatus().setViewLeft(true); // walk Animation, view left
 			this.getStatus().setSpriteID(0+5*this.getStatus().ViewLeftToInt());
 			
@@ -140,7 +138,7 @@ public class Character {
 		if (enemy.isHit(this))
 			if (enemy.blocked)
 				enemy.Life -= settings.deltaHit*Weapon.getStrength(); // looses Life, if hit
-		enemy.Life -= 4 * settings.deltaHit*Weapon.getStrength(); }
+		enemy.Life -= 2 * settings.deltaHit*Weapon.getStrength(); }
 
 	
 	
@@ -152,7 +150,10 @@ public class Character {
 	public boolean collision(Character a) {
     	Rectangle r1 = new Rectangle(this.Status.getPosition().getX(),this.Status.getPosition().getY(),this.Width,this.Height);
     	Rectangle r2 = new Rectangle(a.Status.getPosition().getX(),a.Status.getPosition().getY(),a.Width,a.Height);
-    	return r1.intersects(r2);    	
+    	boolean intersect=r1.intersects(r2);
+    	r1=null;
+    	r2=null;
+    	return intersect;   	
        	
          
     }

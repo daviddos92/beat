@@ -36,29 +36,32 @@ try {
      Character player1char=null;
      Character player2char=null;
 	if(Player1=="Lady Lara")  {
-		 player1char=new Lady_Lara(new Status( new Position(200,320),0,true),"Lady Lara",1000,new Weapon());		
+		 player1char=new Lady_Lara(new Status( new Position(200,320),0,false),"Lady Lara",1000,new Weapon());		
 	}
 	if(Player1=="Emma")			{
-		player1char=new Emma(new Status( new Position(200,320),0,true),"Emma",1000,new Weapon());		
+		player1char=new Emma(new Status( new Position(200,320),0,false),"Emma",1000,new Weapon());		
 	}
 	if(Player1=="Tom")			{
-		 player1char=new Tom(new Status( new Position(200,320),0,true),"Tom",1000,new Weapon());		
+		 player1char=new Tom(new Status( new Position(200,320),0,false),"Tom",1000,new Weapon());		
 	}
 	if(Player1=="Sigmund")		{
-		 player1char=new Sigmund(new Status( new Position(200,320),0,true),"Sigmund",1000,new Weapon());		
+		
+		 player1char=new Sigmund(new Status( new Position(200,320),0,false),"Sigmund",1000,new Weapon());	
+		 
 	}
 					
+	
 	if(Player2=="Lady Lara") {
-		 player2char=new Lady_Lara(new Status( new Position(950,320),0,false),"Lady Lara",1000,new Weapon());		
+		 player2char=new Lady_Lara(new Status( new Position(950,320),0,true),"Lady Lara",1000,new Weapon());		
 	}
 	if(Player2=="Emma") {
-		 player2char=new Emma(new Status( new Position(950,320),0,false),"Emma",1000,new Weapon());	
+		 player2char=new Emma(new Status( new Position(950,320),0,true),"Emma",1000,new Weapon());	
 	}
 	if(Player2=="Tom") {
-		 player2char=new Tom(new Status( new Position(950,320),0,false),"Tom",1000,new Weapon());		
+		 player2char=new Tom(new Status( new Position(950,320),0,true),"Tom",1000,new Weapon());		
 	}
 	if(Player2=="Sigmund")	{
-		player2char=new Sigmund(new Status( new Position(950,320),0,false),"Sigmund",1000,new Weapon());		
+		player2char=new Sigmund(new Status( new Position(950,320),0,true),"Sigmund",1000,new Weapon());		
 	}
 	
 	Button Hintergrund=new Button();
@@ -71,12 +74,13 @@ try {
 	player2char.setSprites();
 	
 	Button player1charbutt=new Button();
-	Button player1charbutt2=new Button();
+	Button player2charbutt=new Button();
 	
-	player1charbutt.addButton(player1char.getStatus().getPosition().getX(), player1char.getStatus().getPosition().getY(),player1char.getSprite()[0]);
-	player1charbutt2.addButton(player2char.getStatus().getPosition().getX(), player2char.getStatus().getPosition().getY(),player2char.getSprite()[5]);
-	player2char.MoveLeft();
 	
+	 
+    player1char.updateSize();		
+    player2char.updateSize();	
+
 	
 	Button lebensbutton1=new Button();
 	lebensbutton1.addButton(5,5, Lebensbalken);
@@ -100,17 +104,38 @@ try {
 	Button lebensbutton10=new Button();
 	lebensbutton10.addButton(900,5, Lebensbalken);
 
-	Keyboard.enableRepeatEvents(false);
+	Keyboard.enableRepeatEvents(true);
 
-	
-
+	System.gc();
+	Display.update();
     
     //Spielschleife
 	while (!Display.isCloseRequested()) {
+		GL11.glClear(0);
+		if(player1char.getStatus().getPosition().getY()==320 && player1char.jump==0) {
+			if(!player1char.getStatus().isViewLeft()) {
+				player1char.getStatus().setSpriteID(0);
+			}
+			else {
+				player1char.getStatus().setSpriteID(5);
+			}
+			
+		}
+		
+		if(player2char.getStatus().getPosition().getY()==320 && player2char.jump==0) {
+			if(!player2char.getStatus().isViewLeft()) {
+				player2char.getStatus().setSpriteID(0);
+			}
+			else {
+				player2char.getStatus().setSpriteID(5);
+			}
+			
+		}
 		
 		
-		
-		if (player1char.jump!=0) {player1char.getStatus().getPosition().setY(player1char.getStatus().getPosition().getY()-2*settings.deltaMove);player1char.jump--;}
+		if (player1char.jump!=0) {
+			player1char.getStatus().getPosition().setY(player1char.getStatus().getPosition().getY()-2*settings.deltaMove);
+			player1char.jump--;}
 		Gravitation(player1char);
 		if (player2char.jump!=0) {player2char.getStatus().getPosition().setY(player2char.getStatus().getPosition().getY()-2*settings.deltaMove);player2char.jump--;}
 		Gravitation(player2char);
@@ -158,16 +183,20 @@ try {
 
 				 player1char.Jump();	
 			 }
-				 if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			 if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
 
 				 player1char.Block();	    
-				 }
-				 if(Keyboard.isKeyDown(Keyboard.KEY_C)) {
+				 
+			 }
+			 if(Keyboard.isKeyDown(Keyboard.KEY_C)) {
 
-			     player1char.Hit(player2char);	    }
-					 if(Keyboard.isKeyDown(Keyboard.KEY_V)) {
-					
-				      player1char.UseSkill(player2char);	    }
+			     player1char.Hit(player2char);	  
+			  }
+			 
+			  if(Keyboard.isKeyDown(Keyboard.KEY_V)) {
+				  
+							      player1char.UseSkill(player2char);
+				}
 
 		 			
 
@@ -186,18 +215,18 @@ try {
 					 if(Keyboard.isKeyDown(Keyboard.KEY_M)) {
 			
 					     player2char.Hit(player1char);	    }
-					// if(Keyboard.isKeyDown(Keyboard.KEY_COMMA)) {
+					 if(Keyboard.isKeyDown(Keyboard.KEY_COMMA)) {
 			
-				//       player2char.Special(player1char);	    }
+				       player2char.UseSkill(player1char);	    }
 					 
 		player1char.updateSize();		
 		player2char.updateSize();	
-		 
-		 player1charbutt.addButton(player1char.getStatus().getPosition().getX(), player1char.getStatus().getPosition().getY(), player1char.getSprite()[player1char.getStatus().getSpriteID()]);
-		 player1charbutt2.addButton(player2char.getStatus().getPosition().getX(), player2char.getStatus().getPosition().getY(), player2char.getSprite()[player2char.getStatus().getSpriteID()]);
+		
+		player1charbutt.addButton(player1char.getStatus().getPosition().getX(), player1char.getStatus().getPosition().getY(), player1char.getSprite()[player1char.getStatus().getSpriteID()]);
+		player2charbutt.addButton(player2char.getStatus().getPosition().getX(), player2char.getStatus().getPosition().getY(), player2char.getSprite()[player2char.getStatus().getSpriteID()]);
 		 
 		player1charbutt.Draw();
-		player1charbutt2.Draw();
+		player2charbutt.Draw();
 		Display.update();
 		
 		if(player1char.isAlive()==false) { 

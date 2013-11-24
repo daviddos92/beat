@@ -9,20 +9,19 @@ import org.lwjgl.opengl.DisplayMode;
 public class ChoosePlayerMode {
 
         public boolean start() {
-//                Button choosePlayer = new Button();
-//                choosePlayer.addButton(350, 150, "../gamejam/src/Textures/PlayKLEIN.png");
-                Button player1 = new Button();
-                player1.addButton(350, 140, "../gamejam/src/Textures/Single.png");
-                Button player2 = new Button();
-                player2.addButton(350, 450, "../gamejam/src/Textures/Multi.png");
-                Button back = new Button();
-                back.addButton(1000, 600, "../gamejam/src/Textures/back.png");
 
-                Button black = new Button();
-                black.addButton(0, 0, "../gamejam/src/Textures/schwarz.png");
+                Button player1 = new Button();
+                player1.addButton(400, 120, "../gamejam/src/Textures/Single.png");
+                Button player2 = new Button();
+                player2.addButton(400, 300, "../gamejam/src/Textures/Multi.png");
+                Button back = new Button();
+                back.addButton(1000, 600, "../gamejam/src/Textures/Zurück.png");
+
+                Button background = new Button();
+                background.addButton(0, 0, "../gamejam/src/Textures/choosePlayerMode Back.png");
 
                 while (!Display.isCloseRequested()) {
-                        black.Draw();
+                        background.Draw();
                         player1.Draw();
                         player2.Draw();
                         back.Draw();
@@ -38,10 +37,12 @@ public class ChoosePlayerMode {
                                 break;
                         }
                         if (back.isClicked) {
+                        	
                                 return true;
                         }
                         Display.update();
                 }
+                Display.destroy();
                 return false;
         }
 }

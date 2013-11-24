@@ -1,5 +1,11 @@
 package general;
 
+import java.io.IOException;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
+
 public class Emma extends Character{
 	
 	
@@ -21,10 +27,16 @@ public class Emma extends Character{
 		Sprite[9]="../GameJam/src/Textures/Wheelgirl_Attack_Chainsaw_inverted.png";		// special inverted
 	}
 	public void updateSize() {
-		Button b = new Button();
-		b.addButton(this.getStatus().getPosition().getX(),this.getStatus().getPosition().getY(),Sprite[this.getStatus().getSpriteID()]);
-		this.Height=b.bounds.height;
-		this.Width=b.bounds.width;
+		Texture b=null;
+	try {
+		b = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(Sprite[this.getStatus().getSpriteID()]));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-
+	this.Height=b.getImageHeight();
+	this.Width=b.getImageWidth();
+	b=null;
 }
+}
+

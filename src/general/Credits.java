@@ -5,26 +5,26 @@ import org.lwjgl.opengl.Display;
 
 public class Credits{
         public boolean start(){
-                Button black = new Button();
-                black.addButton(0, 0, "../gamejam/src/Textures/schwarz.png");
+                Button background = new Button();
+                background.addButton(0, 0, "../gamejam/src/Textures/Credits.png");
                 
-                Button credit = new Button();
-                credit.addButton(200, 200, "../gamejam/src/Textures/lecredits.png");
-                
-                
-                int x1 = 0;
-                int y = 0;
+                Button back = new Button();
+                back.addButton(1000, 600, "../gamejam/src/Textures/Zurück.png");
+
                 while (!Display.isCloseRequested()) {
-                        black.Draw();
-                        credit.addButton(100, x1, "../gamejam/src/Textures/lecredits.png");                                
-                        credit.Draw();        
-                        y++;
-                        if (y==10){
-                                x1++;
-                                y=0;
-                        }
+                        background.Draw();
+                        back.Draw();
+
+                	
+                        if (back.isClicked) {
+                        	
+                            return true;
+                    }
+                        
                         Display.update();
-                }                
+                        }
+                       
+                               
                 
                 return false;                                
         }

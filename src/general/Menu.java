@@ -11,7 +11,7 @@ import org.newdawn.slick.*;
 @SuppressWarnings("unused")
 public class Menu {
 
-	private static final String backpath = "../gamejam/src/Textures/Menu Back.png";
+	private static final String backpath = "../gamejam/src/Textures/Menu Back2.png";
 	private static final String TEXPATH = "../gamejam/src/Textures/PlayKLEIN.png";
 	private static final String TEXPATH2 = "../gamejam/src/Textures/OptionsKLEIN.png";
 	private static final String TEXPATH3 = "../gamejam/src/Textures/CreditsKLEIN.png";
@@ -62,10 +62,20 @@ public class Menu {
 			exit.Draw();
 
 			if (play.isClicked) {
+				
 				ChoosePlayerMode next = new ChoosePlayerMode();
-				if (!next.start()) {
+				if(!next.start()) {
+				exit=null;
+				credits=null;
+				options=null;
+				play=null;
+				background=null;
+				
+				
+						
 					break;
 				}
+				
 			}
 
 			if (options.isClicked) {
@@ -81,7 +91,11 @@ public class Menu {
 
 			}
 			if (exit.isClicked) {
-				ingame.draw("Sigmund", "Emma");
+				exit=null;
+				credits=null;
+				options=null;
+				play=null;
+				background=null;
 				break;
 			}
 

@@ -64,7 +64,6 @@ public class Button {
        
        GL11.glDisable(GL11.GL_BLEND);
        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-       
          
         }
 
