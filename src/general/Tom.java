@@ -22,7 +22,7 @@ public class Tom extends Character{
 		Sprite[6]="../GameJam/src/Textures/Minimie_360_Attack_inverted.png";	// hit inverted
 		Sprite[7]="../GameJam/src/Textures/Minimie_360_Block_inverted.png";		// block inverted
 		Sprite[8]="../GameJam/src/Textures/Minimie_360_Jump_inverted.png";		// jump inverted
-		Sprite[9]="../GameJam/src/Textures/Minimie_360_Jspecial_inverted.png;";	// special inverted
+		Sprite[9]="../GameJam/src/Textures/Minimie_360_special_inverted.png";	// special inverted
 	}
 	public void updateSize() {
 			Texture b=null;

@@ -24,7 +24,7 @@ public class Menu {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		
+		intro();
 		try {
 			Music openingMusic = new Music("../gamejam/src/Musik/menumusic.ogg");
 			openingMusic.play(1,3);
@@ -110,7 +110,21 @@ public class Menu {
 
 	public static void main(String[] argv) {
 		Menu displayExample = new Menu();
+		
 		displayExample.start();
 	}
-
+	public void intro(){
+		Button intro = new Button();
+		intro.addButton(0,0,"../gamejam/src/Textures/outro.jpg");
+		int frame = 0;
+		Button black = new Button();
+		black.addButton(0, 0, backpath);
+		while (frame < 100) {
+			black.Draw();
+			intro.Draw();
+			frame++;
+			Display.update();
+			Display.sync(60);
+		}
+	}
 }

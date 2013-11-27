@@ -4,7 +4,10 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Controller;
+import org.lwjgl.input.Controllers;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Music;
@@ -16,7 +19,7 @@ public class ingame {
 	
 
 	private static long frame = 0;
-
+	static Controller controller;
 	private static final String Hintergrundpath = "../GameJam/src/Textures/background.png";
 	private static final String schwarz = "../GameJam/src/Textures/schwarz.png";
 
@@ -67,8 +70,6 @@ try {
 	Button Hintergrund=new Button();
 	Hintergrund.addButton(0,0, Hintergrundpath);
 	
-	Button Hintergrund2=new Button();
-	Hintergrund2.addButton(100,0, schwarz);
 	
 	player1char.setSprites();
 	player2char.setSprites();
@@ -104,14 +105,30 @@ try {
 	Button lebensbutton10=new Button();
 	lebensbutton10.addButton(900,5, Lebensbalken);
 
-	Keyboard.enableRepeatEvents(true);
+	Keyboard.enableRepeatEvents(false);
 
 	System.gc();
 	Display.update();
-    
+
     //Spielschleife
+	try {
+		Controllers.create();
+		Controllers.poll();
+		for (int i=0;i<Controllers.getControllerCount();i++){
+		controller =Controllers.getController(i);
+			if (controller.getName().equals(new String("Controller (XBOX 360 For Windows)"))) break;
+		}
+	} catch (LWJGLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+
+	input in = new input(player1char,player2char,control.Keyboard_one,control.Keyboard_two);
 	while (!Display.isCloseRequested()) {
-		GL11.glClear(0);
+
+
 		if(player1char.getStatus().getPosition().getY()==320 && player1char.jump==0) {
 			if(!player1char.getStatus().isViewLeft()) {
 				player1char.getStatus().setSpriteID(0);
@@ -169,8 +186,8 @@ try {
 			
 		
 		
-
-	
+in.round();
+	/*
 			 if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 
 				 player1char.MoveLeft();	 
@@ -219,6 +236,7 @@ try {
 			
 				       player2char.UseSkill(player1char);	    }
 					 
+					 */
 		player1char.updateSize();		
 		player2char.updateSize();	
 		
@@ -228,7 +246,8 @@ try {
 		player1charbutt.Draw();
 		player2charbutt.Draw();
 		Display.update();
-		
+		player1charbutt.buttonTexture=null;
+		player2charbutt.buttonTexture=null;
 		if(player1char.isAlive()==false) { 
 			fin.draw(player2char.getName());
 			break;

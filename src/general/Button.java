@@ -17,6 +17,7 @@ public class Button {
     public Texture buttonTexture;
     public boolean isClicked=false;
     public Rectangle bounds = new Rectangle();
+   
 
 
     public void addButton(int x, int y , String TEXPATH){
@@ -64,7 +65,15 @@ public class Button {
        
        GL11.glDisable(GL11.GL_BLEND);
        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-         
+      
         }
-
+    public void destroy(){
+    	try {
+			this.finalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     }
